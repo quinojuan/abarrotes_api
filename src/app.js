@@ -8,7 +8,7 @@ const app = express();
 app.use(morgan("dev"))
 app.use(express.json())
 
-// Routes
+// Routes a utilizar
 
 // app.use("/", indexRoutes)
 // app.use("/api", ventasRoutes)

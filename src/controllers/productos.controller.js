@@ -39,9 +39,9 @@ export const createProduct = async (req, res) => {
       ]
     );
     console.log(rows);
-    res.json("producto creado correctamente");
+    res.json("Producto creado correctamente");
   } catch (error) {
     console.log("Algo salió mal...");
-    res.status(500).json("Algo salió mal...");
+    res.status(500).json({message: "Algo salió mal...", error: error.message});
   }
 };

@@ -6,6 +6,9 @@ export const reporteDeInventario = async (req, res) => {
   const [rows2] = await pool.query(`SELECT SUM(cantidad_actual) AS cantidadProductos FROM Productos;`)
   const {cantidadProductos} = rows2[0]
   
-  res.json(`El total del capital a la fecha es de $ ${subtotal} y es en base a ${cantidadProductos} productos`)
+  res.json({
+    "costo_de_inventario": subtotal,
+    "cantidad_de_productos": cantidadProductos
+  })
 
 }

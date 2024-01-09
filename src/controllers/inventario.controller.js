@@ -1,5 +1,6 @@
 import { pool } from "../db.js"
 
 export const reporteDeInventario = async (req, res) => {
-  const [rows] = await pool.query("SELECT")
+  const [rows] = await pool.query(`SELECT SUM FROM productos;`)
+  res.send(rows)
 }

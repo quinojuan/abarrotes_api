@@ -9,6 +9,17 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+export const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const [rows] = await pool.query("SELECT * FROM Productos WHERE codigo_de_barras = ?", [id])
+    res.json(rows)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
 export const createProduct = async (req, res) => {
   try {
     const {

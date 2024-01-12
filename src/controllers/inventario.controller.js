@@ -12,3 +12,19 @@ export const reporteDeInventario = async (req, res) => {
   })
 
 }
+
+export const updateProduct = async (req, res) => {
+  const {codigo_de_barras, cantidad_a_agregar, descripcion, cantidad_actual } = req.body
+  console.log({
+    codigo_de_barras,
+    descripcion,
+    cantidad_actual,
+    cantidad_a_agregar
+  })
+  res.json({
+    codigo_de_barras,
+    descripcion,
+    cantidad_actual,
+    cantidad_a_agregar
+  })
+}

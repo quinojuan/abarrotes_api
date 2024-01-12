@@ -38,3 +38,4 @@ export const createProduct = async (req, res) => {
     res.status(500).json({ message: "Algo salió mal...", error: error.message });
   }
 };
+

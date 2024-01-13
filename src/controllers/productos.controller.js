@@ -25,8 +25,17 @@ export const createProduct = async (req, res) => {
     const {
       codigo_de_barras, como_se_vende, descripcion, precio_costo, precio_venta, precio_mayor, departamento, utiliza_inventario, cantidad_actual, minimo
     } = req.body;
+
+    // Validar que todos los campos estén presentes y no son vacíos
+    const requiredFields = ["codigo_de_barras", "como_se_vende", "descripcion", "precio_costo", "precio_venta", "precio_mayor", "departamento", "utiliza_inventario", "cantidad_actual", "minimo"]
+    for (const field of requiredFields) {
+      if(!req.body[field]) {
+        console.log({message: `El campo ${field} es obligatorio`})
+        return res.status(400).json({message: `El campo ${field} es obligatorio`})
+      }
+    }
     const [rows] = await pool.query(
-      "INSERT INTO Productos (codigo_de_barras, como_se_vende, descripcion, precio_costo, precio_venta, precio_mayor, departamento, utiliza_inventario, cantidad_actual, minimo ) VALUES (?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO productos (codigo_de_barras, como_se_vende, descripcion, precio_costo, precio_venta, precio_mayor, departamento, utiliza_inventario, cantidad_actual, minimo ) VALUES (?,?,?,?,?,?,?,?,?,?)",
       [
         codigo_de_barras, como_se_vende, descripcion, precio_costo, precio_venta, precio_mayor, departamento, utiliza_inventario, cantidad_actual, minimo
       ]
@@ -34,8 +43,8 @@ export const createProduct = async (req, res) => {
     console.log(rows);
     res.json("Producto creado correctamente");
   } catch (error) {
-    console.log("Algo salió mal...");
-    res.status(500).json({ message: "Algo salió mal...", error: error.message });
+    console.log(error);
+    res.status(500).json({ message: "Algo salió mal...", error});
   }
 };
 

@@ -111,12 +111,38 @@ export const updateProduct = async (req, res) => {
         precio_mayor,
         precio_venta,
         utiliza_inventario,
-        codigo_previo
+        codigo_previo,
       ]
     );
-    res.json(productoUpdated)
+    res.json(productoUpdated);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Algo salió mal...", error });
+  }
+};
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const { codigo_de_barras } = req.params;
+    const [result] = await pool.query(
+      `DELETE FROM productos WHERE codigo_de_barras = ?`,
+      [codigo_de_barras]
+    );
+    if (result.affectedRows > 0) {
+      res.json({
+        success: true,
+        message: `Artículo nro: ${codigo_de_barras} eliminado correctamente`,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: `No se encontró ningún artículo con el código: ${codigo_de_barras}`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Algo salió mal...", error });
   }
 };
